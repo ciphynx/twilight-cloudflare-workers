@@ -53,7 +53,7 @@ use ed25519_dalek::{PublicKey, Verifier, PUBLIC_KEY_LENGTH};
 use hex::FromHex;
 use std::{error::Error, str};
 use twilight_model::{application::interaction::Interaction, http::interaction::InteractionResponse};
-use worker::{Request, Response};
+use worker::{Method, Request, Response};
 
 /// Name of a required request header.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
@@ -145,6 +145,13 @@ impl Display for ProcessRequestError {
                 f.write_str(header.name())?;
                 f.write_str("' is invalid")?;
             }
+            ProcessRequestErrorType::RouteIncorrect { method, path } => {
+                f.write_str("route of the request ('")?;
+                f.write_str(&method.to_ascii_lowercase())?;
+                f.write_str(" ")?;
+                f.write_str(path)?;
+                f.write_str("') is not 'post /'")?;
+            }
         }
 
         Ok(())
@@ -180,6 +187,13 @@ pub enum ProcessRequestErrorType {
         /// Name of the missing header.
         header: InteractionRequestHeaderName,
     },
+    /// Route (method + path) of the request is incorrect.
+    RouteIncorrect {
+        /// Method of the request.
+        method: String,
+        /// Path of the request.
+        path: String,
+    },
 }
 
 /// Process a request, returning the request's interaction body if the request
@@ -204,10 +218,24 @@ pub enum ProcessRequestErrorType {
 ///
 /// Returns an error of type [`MissingHeader`] if a required verification header
 /// is not present.
+///
+/// Returns an error of type [`RouteIncorrect`] if the route is not `POST /`.
 pub async fn process(
     req: &mut Request,
     public_key: &str,
 ) -> Result<Interaction, ProcessRequestError> {
+    let (method, path) = (req.method(), req.path());
+
+    if method != Method::Post || path != "/" {
+        return Err(ProcessRequestError {
+            kind: ProcessRequestErrorType::RouteIncorrect {
+                method: method.to_string(),
+                path,
+            },
+            source: None,
+        });
+    }
+
     // Extract the timestamp header for use later to check the signature.
     let timestamp = req
         .headers()
