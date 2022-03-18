@@ -1,10 +1,11 @@
 [package]
 categories = []
-homepage = "https://github.com/zeylahellyer/twilight-cf-worker"
+description = "Verify Discord interactions on Cloudflare Workers with Twilight."
+homepage = "https://github.com/zeylahellyer/twilight-cloudflare-workers"
 edition = "2021"
-name = "twilight-cf-worker"
+name = "twilight-cloudflare-workers"
 publish = false
-repository = "https://github.com/zeylahellyer/twilight-cf-worker.git"
+repository = "https://github.com/zeylahellyer/twilight-cloudflare-workers.git"
 version = "0.1.0"
 
 [dependencies]

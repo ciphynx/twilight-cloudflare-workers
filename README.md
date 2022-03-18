@@ -1,7 +1,6 @@
-# twilight-cf-worker
+# twilight-cloudflare-workers
 
-`twilight-cf-worker` is a library to verify incoming Discord interaction
-requests on Cloudflare Worker.
+Verify Discord interactions on Cloudflare Workers with Twilight.
 
 ### API
 
