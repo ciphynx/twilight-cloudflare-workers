@@ -1,0 +1,15 @@
+[package]
+categories = []
+homepage = "https://github.com/zeylahellyer/twilight-cf-worker"
+edition = "2021"
+name = "twilight-cf-worker"
+publish = false
+repository = "https://github.com/zeylahellyer/twilight-cf-worker.git"
+version = "0.1.0"
+
+[dependencies]
+hex = "0.4.0"
+ed25519-dalek = "1.0.0"
+serde_json = { default-features = false, features = ["alloc"], version = "1.0" }
+twilight-model = { default-features = false, version = "0.10" }
+worker = { default-features = false, version = "0.0.9" }
