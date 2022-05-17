@@ -52,7 +52,9 @@ use core::fmt::{Debug, Display, Error as FmtError, Formatter};
 use ed25519_dalek::{PublicKey, Verifier, PUBLIC_KEY_LENGTH};
 use hex::FromHex;
 use std::{error::Error, str};
-use twilight_model::{application::interaction::Interaction, http::interaction::InteractionResponse};
+use twilight_model::{
+    application::interaction::Interaction, http::interaction::InteractionResponse,
+};
 use worker::{Method, Request, Response};
 
 /// Name of a required request header.
@@ -97,12 +99,7 @@ impl ProcessRequestError {
 
     /// Consume the error, returning the owned error type and the source error.
     #[must_use = "consuming the error into its parts has no effect if left unused"]
-    pub fn into_parts(
-        self,
-    ) -> (
-        ProcessRequestErrorType,
-        Option<Box<dyn Error>>,
-    ) {
+    pub fn into_parts(self) -> (ProcessRequestErrorType, Option<Box<dyn Error>>) {
         (self.kind, None)
     }
 
@@ -130,7 +127,7 @@ impl Display for ProcessRequestError {
                 } else {
                     Debug::fmt(body, f)?;
                 }
-            },
+            }
             ProcessRequestErrorType::FromHex => {
                 f.write_str("failed to register public key")?;
             }
@@ -317,7 +314,9 @@ pub fn response(response: &InteractionResponse) -> Response {
     };
 
     let mut response = Response::ok(json).expect("creating a response shouldn't fail");
-    response.headers_mut().set("Content-Type", "application/json")
+    response
+        .headers_mut()
+        .set("Content-Type", "application/json")
         .expect("Content-Type header is valid");
 
     response
