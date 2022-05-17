@@ -105,11 +105,18 @@ impl ProcessRequestError {
 
     /// Create a response for the error.
     ///
-    /// The returned response has a status code of 500 (Internal Service Error),
-    /// with a message equal to the Display implementation for the error.
+    /// If the variant is [`ProcessRequestErrorType::InvalidSignature`] then the
+    /// returned response has a status code of 401 (Unauthorized), otherwise the
+    /// status code is 500 (Internal Service Error).
     #[must_use = "created responses must be used to actually send the response"]
     pub fn response(&self) -> Response {
-        Response::error(self.to_string(), 500).expect("status code is valid")
+        let status = if matches!(self.kind(), ProcessRequestErrorType::InvalidSignature) {
+            401
+        } else {
+            500
+        };
+
+        Response::error(self.to_string(), status).expect("status code is valid")
     }
 }
 
