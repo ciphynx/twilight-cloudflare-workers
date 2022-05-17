@@ -224,6 +224,14 @@ pub enum ProcessRequestErrorType {
 /// is not present.
 ///
 /// Returns an error of type [`RouteIncorrect`] if the route is not `POST /`.
+///
+/// [`ChunkingBody`]: ProcessRequestErrorType::ChunkingBody
+/// [`DeserializingInteraction`]: ProcessRequestErrorType::DeserializingInteraction
+/// [`FromHex`]: ProcessRequestErrorType::FromHex
+/// [`InvalidPublicKey`]: ProcessRequestErrorType::InvalidPublicKey
+/// [`InvalidSignature`]: ProcessRequestErrorType::InvalidSignature
+/// [`MissingHeader`]: ProcessRequestErrorType::MissingHeader
+/// [`RouteIncorrect`]: ProcessRequestErrorType::RouteIncorrect
 pub async fn process(
     req: &mut Request,
     public_key: &str,
