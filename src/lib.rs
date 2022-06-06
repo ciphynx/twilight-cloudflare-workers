@@ -203,6 +203,22 @@ pub enum ProcessRequestErrorType {
 /// Process a request, returning the request's interaction body if the request
 /// is valid.
 ///
+/// Deprecated alias of [`request`].
+///
+/// # Errors
+///
+/// Refer to the documentation for [`request`].
+#[deprecated(note = "use `request` instead")]
+pub async fn process(
+    request: &mut Request,
+    public_key: &str,
+) -> Result<Interaction, ProcessRequestError> {
+    self::request(request, public_key).await
+}
+
+/// Process a request, returning the request's interaction body if the request
+/// is valid.
+///
 /// # Errors
 ///
 /// Returns an error of type [`ChunkingBody`] if the request body could not be
@@ -232,7 +248,7 @@ pub enum ProcessRequestErrorType {
 /// [`InvalidSignature`]: ProcessRequestErrorType::InvalidSignature
 /// [`MissingHeader`]: ProcessRequestErrorType::MissingHeader
 /// [`RouteIncorrect`]: ProcessRequestErrorType::RouteIncorrect
-pub async fn process(
+pub async fn request(
     req: &mut Request,
     public_key: &str,
 ) -> Result<Interaction, ProcessRequestError> {
