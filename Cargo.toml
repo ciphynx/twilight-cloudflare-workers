@@ -13,4 +13,4 @@ hex = "0.4.0"
 ed25519-dalek = "1.0.0"
 serde_json = { default-features = false, features = ["alloc"], version = "1.0" }
 twilight-model = { default-features = false, version = "0.12.0" }
-worker = { default-features = false, version = "0.0.9" }
+worker = { default-features = false, version = "0.0.10" }
