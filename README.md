@@ -1,6 +1,7 @@
 # twilight-cloudflare-workers
 
-Verify Discord interactions on Cloudflare Workers with Twilight.
+Verify Discord interactions on Cloudflare Workers with Twilight. Supports
+[`worker`] 0.0.9 and [Twilight] 0.12.
 
 ### API
 
@@ -33,3 +34,6 @@ return twilight_cf_worker::response(interaction_response);
 ### License
 
 ISC.
+
+[Twilight]: https://twilight.rs
+[`worker`]: https://crates.io/crates/worker
