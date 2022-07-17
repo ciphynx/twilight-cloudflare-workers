@@ -9,10 +9,10 @@
 //! ensure it's from Discord, and deserializes the  request body as an interaction.
 //! Using it looks like this:
 //!
-//! ```rust
+//! ```ignore
 //! let key = "discord public key from environment";
 //!
-//! let interaction = match twilight_cf_worker::process(&mut request, key) {
+//! let interaction = match twilight_cloudflare_workers::request(&mut request, key).await {
 //!     Ok(interaction) => interaction,
 //!     Err(source) => {
 //!         // Return the error as a Worker response.
@@ -26,8 +26,8 @@
 //! The other function in the API is `response`, which takes an interaction response
 //! and produces a Worker response:
 //!
-//! ```rust
-//! return twilight_cf_worker::response(interaction_response);
+//! ```ignore
+//! return twilight_cloudflare_workers::response(interaction_response);
 //! ```
 //!
 //! ### License
