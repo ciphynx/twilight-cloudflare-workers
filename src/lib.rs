@@ -337,9 +337,7 @@ pub async fn request(
 /// created noting that the response could not be serialized.
 #[must_use = "created responses must be used to actually send the response"]
 pub fn response(response: &InteractionResponse) -> Response {
-    let json = if let Ok(json) = serde_json::to_string(response) {
-        json
-    } else {
+    let Ok(json) = serde_json::to_string(response) else {
         return Response::error("failed to serialize interaction response", 500)
             .expect("status code is within acceptable range");
     };
