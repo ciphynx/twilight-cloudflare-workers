@@ -11,6 +11,6 @@ version = "0.1.0"
 [dependencies]
 hex = "0.4.0"
 ed25519-dalek = "1.0.0"
-serde_json = { default-features = false, features = ["alloc"], version = "1.0" }
-twilight-model = { default-features = false, version = "0.15" }
-worker = { default-features = false, version = "0.0.9" }
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+twilight-model = { git = "https://github.com/twilight-rs/twilight.git", branch = "next" }
+worker = { version = "0.0.17", default-features = false }

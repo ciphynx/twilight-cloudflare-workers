@@ -1,7 +1,7 @@
 # twilight-cloudflare-workers
 
 Verify Discord interactions on Cloudflare Workers with Twilight. Supports
-[`worker`] 0.0.9 and [Twilight] 0.15.
+[`worker`] 0.0.17 and [Twilight] 0.15 on the next branch.
 
 ### API
 
